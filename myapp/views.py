@@ -31,7 +31,7 @@ class PersonView(View):
     def get(self, request, pk=None):
         if pk is not None:
             # person = Person.objects.filter(id=pk).values()
-            person = Person.objects.filter(pk=pk).values().first()
+            person = Person.objects.filter(id=pk).values().first()
             if not person:
                 return JsonResponse({"error": "Person not found"}, status=404)
             return JsonResponse(person)
@@ -76,7 +76,8 @@ class PersonView(View):
             sex=data.get("sex"),
         )
         p.save()
-        return HttpResponse(status=200)
+        # return HttpResponse(status=200)
+        return JsonResponse({"message": "저장이 완료되었습니다"}, status=200)
 
 
 # class PersonListView(ListView):

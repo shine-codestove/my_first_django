@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Hello jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>Hello World jQuery Template</h1>
+    <section>
+      <div id="div1" style="width: 100px; height: 100px; background-color: red">
+        1
+      </div>
+      <div
+        id="div2"
+        style="width: 100px; height: 100px; background-color: green"
+      >
+        2
+      </div>
+      <div
+        id="div3"
+        style="width: 100px; height: 100px; background-color: blue"
+      >
+        3
+      </div>
+      <div>
+        <button id="btn_hide">야!숨겨</button>
+      </div>
+    </section>
+    <script>
+      $(document).ready(function () {
+        //$("li:eq(0)").mouseenter(function () {
+        //  alert("나 선택됐다!");
+        //  $(this).css("background-color", "#cccccc");
+        //});
+        //alert("제이쿼리가 동작한다!!!!");
+        //$("li").click(function () {
+        //  $(this).hide();
+        //});
+        //$("#btn_hide").click(function () {
+        //  $("li:eq(0)").hide();
+        //});
+
+        $("button").click(function () {
+          {% comment %} alert("hellop");
+          $("#div1").fadeOut();
+          $("#div2").fadeOut("slow");
+          $("#div3").fadeOut(3000); {% endcomment %}
+
+            $('#div1').text('Change1')
+
+            const div = document.createElement('div')
+            const p = document.createElement('p')
+            p.innerText = 'hello';
+            div.append(p)
+            const hello = "hello";
+            const divElem = $(`<div><p>${hello}</p></div>`)
+
+            $('#div2').append(divElem)
+
+        });
+      });
+    </script>
+  </body>
+</html>

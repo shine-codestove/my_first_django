@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Hello World</title>
+  </head>
+  <body>
+    <script>
+      const st_id = 1;
+      fetch(`http://localhost:8000/myapp/student/${st_id}/`)
+      .then(response => response.json()
+      .then(student => {
+          //document.querySelector('#my_name').innerText = student.name;
+          document.query
+          $('#my_name').text(student.name)
+      })
+    </script>
+    <h1>Hello World Django Template</h1>
+    <h1>나의 이름은 <span id="my_name"></span></h1>
+  </body>
+</html>

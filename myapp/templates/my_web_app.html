@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <script>
+      const getGeo = () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+          console.log(position);
+          document.querySelector("#latitude").innerText =
+            position.coords.latitude;
+          document.querySelector("#longitude").innerText =
+            position.coords.longitude;
+        });
+      };
+    </script>
+  </head>
+  <body onload="getGeo()">
+    <h1>latitude : <span id="latitude"></span></h1>
+    <h1>longitude : <span id="longitude"></span></h1>
+  </body>
+</html>

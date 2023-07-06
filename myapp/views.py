@@ -11,10 +11,12 @@ from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
+from myapp.models.course import StudentCourse
 
 # from django.views.generic import DetailView, ListView, UpdateView
 
 from myapp.models.person import Person
+from myapp.models.student import Student
 
 
 class PersonForm(forms.ModelForm):
@@ -80,6 +82,20 @@ class PersonView(View):
         return JsonResponse({"message": "저장이 완료되었습니다"}, status=200)
 
 
+from django.views.generic import TemplateView
+
+
+class PersonTemplateView(TemplateView):
+    template_name = "person_template.html"  # The path to your template file
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        person = Person.objects.first()
+        context["person"] = person
+        context["greeting"] = "Hello, world!"  # Adding a context variable
+        return context
+
+
 # class PersonListView(ListView):
 #     model = Person
 #     context_object_name = "persons"
@@ -137,3 +153,21 @@ class PersonView(View):
 
 #     def render_to_response(self, context, **response_kwargs):
 #         return HttpResponse(status=200)
+
+
+# /myapp/student_course/<int:st_no>/
+# /myapp/student_course/1001/
+
+
+class StudentCourseView(View):
+    def get(self, request, st_id):
+        student = Student.objects.filter(id=st_id).values().first()
+        course_list = (
+            StudentCourse.objects.filter(student_id=st_id)
+            .select_related("course")
+            .values()
+        )
+
+        return JsonResponse(
+            {"student": student, "course_list": list(course_list)}, safe=False
+        )

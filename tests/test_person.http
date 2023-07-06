@@ -1,0 +1,12 @@
+# Person 목록조회
+#GET http://127.0.0.1:8000/myapp/person/
+
+# Person을 저장
+POST http://127.0.0.1:8000/myapp/person/
+
+{
+    "first_name" : "말자",
+    "last_name" : "유",
+    "age" : 45, 
+    "sex" : "female"
+}

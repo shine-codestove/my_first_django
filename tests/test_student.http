@@ -1,0 +1,1 @@
+GET http://localhost:8000/myapp/school/student_course/1/

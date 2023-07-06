@@ -1,13 +1,14 @@
+import json
+
 from django.http import JsonResponse
-from django.shortcuts import get_list_or_404, get_object_or_404, render
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-import json
-from django.views.decorators.csrf import csrf_exempt
-from myapp.models.student import Student
 from myapp.models.course import StudentCourse
+from myapp.models.student import Student
 
 
 class StudentCourseView(View):
@@ -46,7 +47,6 @@ class StudentView(View):
             name=data.get("name"),
             student_no=data.get("student_no"),
             grade=data.get("grade"),
-            courses=data.get("courses"),
             department=data.get("department"),
         )
         p.save()

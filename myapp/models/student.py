@@ -13,10 +13,10 @@ class Student(models.Model):
         ("5", "5학년"),
     )
 
-    student_no = models.CharField(max_length=200)
-    name = models.CharField(max_length=200)
-    grade = models.CharField(max_length=20, choices=GRADE_TYPE, default="1")
-    department = models.CharField(max_length=100)
+    student_no = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=200, null=False, blank=False)
+    grade = models.CharField(max_length=20, choices=GRADE_TYPE)
+    department = models.CharField(max_length=100, null=False, blank=False)
 
     def __str__(self):
         return self.name

@@ -1,17 +1,16 @@
 from django.urls import path
 
+from myapp.views.example import HelloTemplateView, JqueryTemplateView
+from myapp.views.person import (
+    PersonView,
+    PersonTemplateView,
+)
 from myapp.views.student import (
     StudentCourseView,
     StudentTemplateView,
     StudentListTemplateView,
     StudentView,
 )
-from myapp.views.person import (
-    PersonView,
-    PersonTemplateView,
-)
-
-from myapp.views.example import HelloTemplateView, JqueryTemplateView
 
 app_name = "myapp"
 

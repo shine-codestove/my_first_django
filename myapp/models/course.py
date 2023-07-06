@@ -12,7 +12,7 @@ class Course(models.Model):
     professor = models.CharField(max_length=100)
     limit = models.IntegerField(default=0)
     description = models.CharField(max_length=300)
-    permit_subject = models.JSONField(default=dict)
+    permit_subject = models.JSONField(null=True, blank=True)
 
     def __str__(self) -> str:
         return self.name

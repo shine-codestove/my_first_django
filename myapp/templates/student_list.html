@@ -64,6 +64,8 @@
     </section>
 </div>
 {% include 'layout/footer.html' %}
+{% load static %}
+<script src="{% static 'js/utils.js' %}"></script>
 <script>
     //화면이 로딩되면
     $(function () {
@@ -92,22 +94,30 @@
                 console.log(response)
             });
         });
-        $.ajax({
-            url: "http://localhost:8000/myapp/student/",
-            method: "GET",
-        }).done(function (response) {
-            console.log(response);
-            const tr_array = response.map(student => $(
-                `<tr>
-                    <td>${student.id}</td>
-                    <td>${student.student_no}</td>
-                    <td>${student.name}</td>
-                    <td>${student.grade}</td>
-                    <td>${student.department}</td>
-                </tr>`
-            ))
-            $("#data_table > tbody").append(tr_array);
-        });
+
+        /**
+         * 학생 목록을 조회하는 함수
+         */
+        function getStudentList() {
+            $.ajax({
+                url: "http://localhost:8000/myapp/student/",
+                method: "GET",
+            }).done(function (response) {
+                console.log(response);
+                const tr_array = response.map(student => $(
+                    `<tr>
+                        <td>${student.id}</td>
+                        <td>${student.student_no}</td>
+                        <td>${student.name}</td>
+                        <td>${student.grade}</td>
+                        <td>${student.department}</td>
+                    </tr>`
+                ))
+                $("#data_table > tbody").append(tr_array);
+            });
+        }
+
+        getStudentList();
     });
 </script>
 </body>

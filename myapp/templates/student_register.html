@@ -1,19 +1,11 @@
 <html>
 <head>
-    <title>학생 상세정보</title>
+    <title>학생 등록하기</title>
     {% include 'layout/head.html' %}
     <script>
         $(function () {
             function getStudent() {
-                // http://localhost:8000/myapp/student/page/?student_id=1&newparam=hello
-                // location.search = ?student_id=1
-                // location.search.slice(-1)
                 const searchParams = new URLSearchParams(location.search);
-               // Map, Set
-               //     student_id : 1
-               //     newparam : hello
-
-
                 const studentId = searchParams.get('student_id')
                 sessionStorage.setItem('st_id', studentId);
                 $.ajax({
@@ -30,15 +22,18 @@
 
             $("#btn_save").click(function () {
                 alert("저장!");
+                const st_no = $("#student_no").val();
+                const st_name = $("#student_name").val();
                 const st_dept = $("#student_dept").val();
                 const st_grade = $("#student_grade").val();
 
-                const studentId = sessionStorage.getItem('st_id');
                 $.ajax({
-                    url: `http://localhost:8000/myapp/student/${studentId}/`,
-                    method: "PUT",
+                    url: "http://localhost:8000/myapp/student/",
+                    method: "POST",
                     contentType: "application/json",
                     data: JSON.stringify({
+                        student_no: st_no || null,
+                        name: st_name || null,
                         department: st_dept || null,
                         grade: st_grade || null,
                     })
@@ -58,7 +53,7 @@
 <div class="container">
     {% include 'layout/header.html' %}
     <header>
-        <h1>학생 상세정보</h1>
+        <h1>학생 등록하기</h1>
     </header>
     <section>
         <div class="mb-3">
@@ -67,7 +62,6 @@
                     type="text"
                     class="form-control"
                     id="student_no"
-                    disabled
                     placeholder="학번을 입력하세요"
             />
         </div>
@@ -77,7 +71,6 @@
                     type="text"
                     class="form-control"
                     id="student_name"
-                    disabled
                     placeholder="이름을 입력하세요"
             />
         </div>
@@ -99,8 +92,10 @@
                     placeholder="학과를 입력하세요"
             />
         </div>
-        <a href="/myapp/student/list_page/"><button class="btn btn-info">목록으로 돌아가기</button></a>
-        <button id="btn_save" class="btn btn-warning">수정</button>
+        <a href="/myapp/student/list_page/">
+            <button class="btn btn-info">목록으로 돌아가기</button>
+        </a>
+        <button id="btn_save" class="btn btn-warning">등록</button>
     </section>
 </div>
 {% include 'layout/footer.html' %}

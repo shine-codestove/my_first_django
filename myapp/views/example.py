@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-
+from django.shortcuts import render
 
 class HelloTemplateView(TemplateView):
     template_name = "my_web_app.html"
@@ -12,3 +12,7 @@ class HelloTemplateView(TemplateView):
 
 class JqueryTemplateView(TemplateView):
     template_name = "jquery_study.html"
+
+
+def jquery_page(request):
+    return render(request, "jquery_study.html")

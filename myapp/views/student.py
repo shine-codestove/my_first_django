@@ -1,7 +1,7 @@
 import json
 
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
@@ -53,22 +53,35 @@ class StudentView(View):
         # return HttpResponse(status=200)
         return JsonResponse({"message": "저장이 완료되었습니다"}, status=200)
 
+    def put(self, request, pk):
+        student = get_object_or_404(Student, pk=pk)
+        data = json.loads(request.body)
+
+        student.grade = data.get("grade") or student.grade
+        student.department = data.get("department") or student.department
+
+        student.save()
+        return JsonResponse(data)
+
 
 class StudentListTemplateView(TemplateView):
     template_name = "student_list.html"
 
 
-def jquery_page(request):
-    return render(request, "jquery_study.html")
+class StudentRegisterTemplateView(TemplateView):
+    template_name = "student_register.html"
+
+
+
 
 
 class StudentTemplateView(TemplateView):
     template_name = "student.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["my_name"] = "유광종"
-        student = Student.objects.filter(id=1).values().first()
-
-        context["student"] = student
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["my_name"] = "유광종"
+    #     student = Student.objects.filter(id=1).values().first()
+    #
+    #     context["student"] = student
+    #     return context

@@ -1,6 +1,6 @@
 import json
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -63,6 +63,11 @@ class StudentView(View):
         student.save()
         return JsonResponse(data)
 
+    def delete(self, request, pk):
+        student = get_object_or_404(Student, pk=pk)
+        student.delete()
+        return HttpResponse(status=200)
+
 
 class StudentListTemplateView(TemplateView):
     template_name = "student_list.html"
@@ -70,9 +75,6 @@ class StudentListTemplateView(TemplateView):
 
 class StudentRegisterTemplateView(TemplateView):
     template_name = "student_register.html"
-
-
-
 
 
 class StudentTemplateView(TemplateView):

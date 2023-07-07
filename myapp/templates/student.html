@@ -9,9 +9,9 @@
                 // location.search = ?student_id=1
                 // location.search.slice(-1)
                 const searchParams = new URLSearchParams(location.search);
-               // Map, Set
-               //     student_id : 1
-               //     newparam : hello
+                // Map, Set
+                //     student_id : 1
+                //     newparam : hello
 
 
                 const studentId = searchParams.get('student_id')
@@ -28,8 +28,25 @@
                 });
             }
 
+            $("#btn_delete").click(function () {
+                if (confirm("삭제하시겠습니까?")) {
+                    const studentId = sessionStorage.getItem('st_id');
+                    $.ajax({
+                        url: `http://localhost:8000/myapp/student/${studentId}/`,
+                        method: "DELETE"
+                    }).done(function (response) {
+                        alert('삭제 성공');
+                        location.href = '/myapp/student/list_page/';
+                    }).fail(function (response) {
+                        alert('삭제 실패');
+                    }).always(function (response) {
+                        console.log(response);
+                    });
+                }
+
+            })
             $("#btn_save").click(function () {
-                alert("저장!");
+                alert("저장하겠습니다!");
                 const st_dept = $("#student_dept").val();
                 const st_grade = $("#student_grade").val();
 
@@ -100,7 +117,8 @@
             />
         </div>
         <a href="/myapp/student/list_page/"><button class="btn btn-info">목록으로 돌아가기</button></a>
-        <button id="btn_save" class="btn btn-warning">수정</button>
+        <button id="btn_save" class="btn btn-primary">수정</button>
+        <button id="btn_delete" class="btn btn-danger">삭제</button>
     </section>
 </div>
 {% include 'layout/footer.html' %}

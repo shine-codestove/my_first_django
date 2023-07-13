@@ -12,6 +12,13 @@ from myapp.views.student import (
     StudentView,
     StudentRegisterTemplateView
 )
+from rest_framework import routers
+
+from myapp.views.user import UserViewSet, GroupViewSet
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'groups', GroupViewSet)
 
 app_name = "myapp"
 

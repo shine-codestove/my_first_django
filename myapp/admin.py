@@ -1,6 +1,8 @@
 from django.contrib import admin
 from myapp.models.course import Course, StudentCourse
 from myapp.models.person import Person
+from myapp.models.price_file import PriceFile
+from myapp.models.price_table import PriceTable
 from myapp.models.student import Student
 
 
@@ -12,6 +14,17 @@ class PersonAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Person, PersonAdmin)
+
+
+@admin.register(PriceTable)
+class PriceTableAdmin(admin.ModelAdmin):
+    search_fields = ['start_area', 'end_area']
+    list_display = ("id", "start_area", "end_area", "price")
+
+
+@admin.register(PriceFile)
+class PriceFileAdmin(admin.ModelAdmin):
+    list_display = ("id", "file", "uploaded_at")
 
 
 @admin.register(Student)

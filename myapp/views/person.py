@@ -10,11 +10,15 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.viewsets import ModelViewSet
+
+from myapp.models.person import Person, PersonSerializer
 
 
-# from django.views.generic import DetailView, ListView, UpdateView
-
-from myapp.models.person import Person
+# DRF를 위한 ViewSet
+class PersonViewSet(ModelViewSet):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
 
 
 class PersonForm(forms.ModelForm):
@@ -89,7 +93,6 @@ class PersonTemplateView(TemplateView):
         context["person"] = person
         context["greeting"] = "Hello, world!"  # Adding a context variable
         return context
-
 
 # class PersonListView(ListView):
 #     model = Person

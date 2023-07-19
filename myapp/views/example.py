@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
+
 class HelloTemplateView(TemplateView):
     template_name = "my_web_app.html"
 

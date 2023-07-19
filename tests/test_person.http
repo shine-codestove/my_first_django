@@ -1,7 +1,7 @@
 # Person 목록조회
-#GET http://127.0.0.1:8000/myapp/person/
+GET http://127.0.0.1:8000/myapp/person/
 
-# Person을 저장
+### Person을 저장
 POST http://127.0.0.1:8000/myapp/person/
 
 {

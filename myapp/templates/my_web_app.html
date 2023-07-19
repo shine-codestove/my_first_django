@@ -1,19 +1,46 @@
 <html>
-  <head>
+<head>
+    {% include 'layout/head.html' %}
     <script>
-      const getGeo = () => {
-        navigator.geolocation.getCurrentPosition((position) => {
-          console.log(position);
-          document.querySelector("#latitude").innerText =
-            position.coords.latitude;
-          document.querySelector("#longitude").innerText =
-            position.coords.longitude;
-        });
-      };
+        const getGeo = () => {
+            navigator.geolocation.getCurrentPosition((position) => {
+                console.log(position);
+                document.querySelector("#latitude").innerText =
+                    position.coords.latitude;
+                document.querySelector("#longitude").innerText =
+                    position.coords.longitude;
+            });
+        };
+        const USER_ID = {{ request.user.id }} + " 입니다.";
+        alert(USER_ID);
     </script>
-  </head>
-  <body onload="getGeo()">
+</head>
+<body onload="getGeo()">
+<section>
+    {% if request.user.is_authenticated %}
+        <p>Welcome, {{ request.user.id }}!</p>
+    {% else %}
+        <p>Please log in to view this content.</p>
+    {% endif %}
+</section>
+<section>
     <h1>latitude : <span id="latitude"></span></h1>
     <h1>longitude : <span id="longitude"></span></h1>
-  </body>
+</section>
+<section class="container vstack">
+    <div class="position-relative">
+        <div class="row bg-danger position-absolute top-0">
+            {% load static %}
+            <img src="{% static "images/pic1.jpg" %}" alt="">
+        </div>
+        <div class="row bg-warning position-absolute top-0">
+            <img src="{% static "images/pic2.jpg" %}" alt="">
+        </div>
+    </div>
+
+    <div>
+        <h1>하단에 위치할 글씨들....</h1>
+    </div>
+</section>
+</body>
 </html>

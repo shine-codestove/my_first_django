@@ -1,9 +1,9 @@
-from django.urls import path
+from django.urls import path, include
 
 from myapp.views.example import HelloTemplateView, jquery_page
 from myapp.views.person import (
     PersonView,
-    PersonTemplateView,
+    PersonTemplateView, PersonViewSet,
 )
 from myapp.views.student import (
     StudentCourseView,
@@ -12,20 +12,18 @@ from myapp.views.student import (
     StudentView,
     StudentRegisterTemplateView
 )
-from rest_framework import routers
 
-from myapp.views.user import UserViewSet, GroupViewSet
-
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'groups', GroupViewSet)
 
 app_name = "myapp"
 
 urlpatterns = [
+
     path("person/", PersonView.as_view(), name="person_list_create"),
     path("person/<int:pk>/", PersonView.as_view(), name="person_detail_update_delete"),
     path("person/view/", PersonTemplateView.as_view(), name="person_template"),
+
+    # path("person/api/", PersonViewSet, name="person_api"),
+
     path("student/", StudentView.as_view(), name="student_list"),
     path("student/<int:pk>/", StudentView.as_view(), name="student_get"),
     path(
